@@ -1,0 +1,90 @@
+def solution(name):
+    start1=list('A'*len(name))
+    start2=list('A'*len(name))
+    start3=list('A'*len(name))
+    start4=list('A'*len(name))
+    name=list(name)
+    index=0
+    answer=min(straight_right(name,start1),straight_left(name,start2),right_to_left(name,start3),left_to_right(name,start4))
+    return answer
+        
+
+def straight_right(name,start):
+    index=0
+    count=0
+    while(True):
+        distance=(ord(name[index])-ord('A'))
+        if(distance>13):
+            distance=26-distance
+        count+=distance
+        start[index]=name[index]
+        if(start==name):
+            break
+        else:
+            index+=1
+            count+=1
+    return count
+            
+def straight_left(name,start):
+    index=0
+    count=0
+    while(True):
+        distance=(ord(name[index])-ord('A'))
+        if(distance>13):
+            distance=26-distance
+        count+=distance
+        start[index]=name[index]
+        if(start==name):
+            break
+        else:
+            index-=1
+            count+=1
+    return count
+            
+def right_to_left(name,start):
+    condition=True
+    index=0
+    count=0
+    direction=1
+    while(True):
+        distance=(ord(name[index])-ord('A'))
+        if(distance>13):
+            distance=26-distance
+        count+=distance
+        start[index]=name[index]
+        if(start==name):
+            break
+        else:
+            if(name[index+direction]=='A' and condition):
+                direction=-direction
+                index+=direction
+                count+=1
+                condition=False
+            else:
+                index+=direction
+                count+=1
+    return count
+    
+def left_to_right(name,start):
+    condition=True
+    index=0
+    count=0
+    direction=-1
+    while(True):
+        distance=(ord(name[index])-ord('A'))
+        if(distance>13):
+            distance=26-distance
+        count+=distance
+        start[index]=name[index]
+        if(start==name):
+            break
+        else:
+            if(name[index+direction]=='A' and condition):
+                direction=-direction
+                index+=direction
+                count+=1
+                condition=False
+            else:
+                index+=direction
+                count+=1
+    return count
