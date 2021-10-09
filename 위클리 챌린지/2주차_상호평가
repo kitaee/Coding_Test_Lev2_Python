@@ -1,0 +1,30 @@
+def solution(scores):
+    answer = ''
+    average=0
+    
+    for i in range(len(scores[0])):
+        score_list=[]
+        for j in range(len(scores)):
+            score_list.append(scores[j][i])
+        if(max(score_list)==score_list[i] and score_list.count(max(score_list))==1):
+            average=(sum(score_list)-max(score_list))/(len(score_list)-1)
+            answer+=getGrade(average)
+        elif(min(score_list)==score_list[i] and score_list.count(min(score_list))==1):
+            average=(sum(score_list)-min(score_list))/(len(score_list)-1)
+            answer+=getGrade(average)
+        else:
+            average=sum(score_list)/len(score_list)
+            answer+=getGrade(average)
+    return answer
+            
+def getGrade(score):
+    if(score>=90):
+        return 'A'
+    elif(score>=80):
+        return 'B'
+    elif(score>=70):
+        return 'C'
+    elif(score>=50):
+        return 'D'
+    else:
+        return 'F'
