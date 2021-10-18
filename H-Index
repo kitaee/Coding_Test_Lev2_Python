@@ -1,0 +1,9 @@
+def solution(citations):
+    for k in range(len(citations)):
+        count=0
+        for j in range(len(citations)):
+            if(citations[j]>=k):
+                count+=1
+        if(count<k):
+            return k-1
+    return count
