@@ -1,0 +1,7 @@
+def solution(brown, yellow):
+    answer = []
+    for k in range(yellow+1):
+        if((k*(brown/2-k-2))==yellow):
+            answer.append(int(yellow/k + 2))
+            answer.append(k+2)
+            return answer
