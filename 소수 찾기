@@ -1,0 +1,29 @@
+from itertools import permutations
+
+def solution(numbers):
+    answer=0
+    case=[]
+    final_case=[]
+    for k in range(1,len(numbers)+1):
+        case+=list(map(''.join,permutations(numbers,k)))    
+    case=list(set(case))
+    for k in range(len(case)):
+        final_case.append(int(case[k]))
+    final_case=list(set(final_case))
+    for i in range(len(final_case)):
+        if(isPrime(int(final_case[i]))):
+            answer+=1
+    return answer
+    
+def isPrime(number):
+    if(number==0):
+        return False
+    elif(number==1):
+        return False
+    elif(number==2):
+        return True
+    else:
+        for k in range(2,number):
+            if(number%k==0):
+                return False
+        return True
