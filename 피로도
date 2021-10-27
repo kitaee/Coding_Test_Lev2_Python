@@ -1,0 +1,25 @@
+from itertools import permutations
+
+def solution(k, dungeons):
+    count=0
+    max=0
+    order_list=[]
+    for i in range(len(dungeons)):
+        order_list.append(i)
+    case=list(permutations(order_list))
+    for i in range(len(case)):
+        hp=k
+        for j in range(len(case[i])):
+            if(dungeons[case[i][j]][0]>hp):
+                break
+            else:
+                count+=1
+                hp-=(dungeons[case[i][j]][1])
+                if(hp<0):
+                    count-=1
+                    break
+        if(max<count):
+            max=count
+            count=0
+        count=0
+    return max
