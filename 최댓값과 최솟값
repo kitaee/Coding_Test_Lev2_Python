@@ -1,0 +1,12 @@
+def solution(s):
+    answer = ''
+    string_list=s.split(" ")
+    integer_list=[]
+    for k in range(len(string_list)):
+        integer_list.append(int(string_list[k]))
+    max_number=max(integer_list)
+    min_number=min(integer_list)
+    answer+=str(min_number)
+    answer+=" "
+    answer+=str(max_number)
+    return answer
