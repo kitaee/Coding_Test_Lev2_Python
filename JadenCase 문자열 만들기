@@ -1,0 +1,15 @@
+def solution(s):
+    answer = ''
+    s=s.lower()
+    isFirst=True
+    for k in range(len(s)):
+        if(s[k]!=' '):
+            if(isFirst):
+                answer+=s[k].upper()
+                isFirst=False
+            else:
+                answer+=s[k]
+        else:
+            answer+=s[k]
+            isFirst=True
+    return answer
