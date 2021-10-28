@@ -1,0 +1,16 @@
+def solution(numbers):
+    answer = []
+
+    for number in numbers:
+        if(number%2==0):
+            answer.append(number+1)
+            continue
+        else:
+            bin_number='0'+bin(number)[2::]
+            index=bin_number.rfind('0')
+            bin_number=list(bin_number)
+            bin_number[index]='1'
+            bin_number[index+1]='0'
+            answer.append(int(''.join(bin_number),2))
+
+    return answer
