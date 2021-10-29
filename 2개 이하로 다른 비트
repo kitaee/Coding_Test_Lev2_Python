@@ -13,4 +13,4 @@ def solution(numbers):
             bin_number[index+1]='0'
             answer.append(int(''.join(bin_number),2))
 
-    return answer
+    return answer 
