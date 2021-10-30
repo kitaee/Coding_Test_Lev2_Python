@@ -1,0 +1,33 @@
+def solution(str1, str2):
+    answer = 0
+    str1=str1.lower()
+    str2=str2.lower()
+    str1_case=[]
+    str1_set_case=[]
+    str2_case=[]
+    gyo=0
+    hap=0
+    for i in range(len(str1)-1):
+        if(str1[i].isalpha() and str1[i+1].isalpha()):
+            str1_case.append(str1[i]+str1[i+1])
+        else:
+            continue
+    
+    str1_set_case=list(set(str1_case))
+    
+    for i in range(len(str2)-1):
+        if(str2[i].isalpha() and str2[i+1].isalpha()):
+            str2_case.append(str2[i]+str2[i+1])
+        else:
+            continue
+        
+    if(len(str1_case)==0 and len(str2_case)==0):
+        return 65536
+    else:
+        for k in range(len(str1_set_case)):
+            if(str1_set_case[k].isalpha() and str1_set_case[k] in str2_case):
+                gyo+=(min(str1_case.count(str1_set_case[k]), str2_case.count(str1_set_case[k])))
+            else:
+                continue
+    hap=len(str1_case)+len(str2_case)-gyo
+    return int((gyo/hap)*65536)
