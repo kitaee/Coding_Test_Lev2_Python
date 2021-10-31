@@ -1,0 +1,17 @@
+def solution(skill,skill_trees):
+    answer=0
+    for skills in skill_trees:
+        index=0
+        condition=True
+        for k in range(len(skill)):
+            if(skill[k] in skills):
+                if(index==-1 or skills.index(skill[k])<index):
+                    condition=False
+                    break
+                else:
+                    index=skills.index(skill[k])
+            else:
+                index=-1
+        if(condition):
+            answer+=1
+    return answer
