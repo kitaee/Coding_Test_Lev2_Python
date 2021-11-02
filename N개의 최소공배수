@@ -1,0 +1,12 @@
+from math import gcd
+
+def solution(arr):
+    while(len(arr)>1):
+        new_number=lcm(arr[-1],arr[-2])
+        arr.pop()
+        arr.pop()
+        arr.append(new_number)
+    return arr[0]
+    
+def lcm(x,y):
+    return x*y//gcd(x,y)
