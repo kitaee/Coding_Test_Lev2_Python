@@ -1,0 +1,2 @@
+def solution(s):
+    return (bin(s).count('1'))
