@@ -1,0 +1,10 @@
+def solution(s):
+    answer = []
+    count=0
+    deletedZero=0
+    while(int(s)!=1):
+        count+=1
+        deletedZero+=(s.count('0'))
+        s=bin(s.count('1'))[2::]
+    answer=[count,deletedZero]
+    return answer
