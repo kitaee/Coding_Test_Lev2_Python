@@ -1,0 +1,33 @@
+def solution(m, musicinfos):
+    answer=[]
+    m=changeCode(m)
+    idx=0
+    for info in musicinfos:
+        new_info=changeCode(info.split(',')[3])
+        hr_time=int(info.split(',')[1][0:2])-int(info.split(',')[0][0:2])
+        min_time=int(info.split(',')[1][3::])-int(info.split(',')[0][3::])
+        time=60*hr_time + min_time
+        listen = new_info*(time//len(new_info))+new_info[0:time%len(new_info)]
+        if(m in listen):
+            answer.append([idx,time,info.split(',')[2]])
+        idx+=1
+    if(len(answer)==0):
+        return "(None)"
+    elif(len(answer)==1):
+        return answer[0][2]
+    else:
+        answer=sorted(answer,key=lambda x:(-x[1],x[0]))
+        return answer[0][2]
+            
+def changeCode(music):
+    music = music.replace('D#', 'd')
+    music = music.replace('C#', 'c')
+    music = music.replace('F#', 'f')
+    music = music.replace('G#', 'g')
+    music = music.replace('A#', 'a') 
+    return music
+    
+    
+m="CC#BCC#BCC#BCC#B"
+musicinfos=["03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B"]
+solution(m,musicinfos)
