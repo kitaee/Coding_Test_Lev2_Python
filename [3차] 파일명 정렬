@@ -1,0 +1,22 @@
+def solution(files):
+    answer = []
+    for file in files:
+        head,number,tail = '', '', ''
+        
+        numberCheck=False
+        for k in range(len(file)):
+            if(file[k].isdigit()):
+                number+=file[k]
+                numberCheck=True
+            elif not numberCheck:
+                head+=file[k]
+            else:
+                tail+=file[k::]
+                break
+        answer.append((head,number,tail))
+    answer.sort(key=lambda x: (x[0].upper(), int(x[1])))
+    return [''.join(t) for t in answer]
+
+    
+files=["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]
+solution(files)
