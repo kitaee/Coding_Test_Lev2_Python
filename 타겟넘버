@@ -1,0 +1,13 @@
+def solution(numbers, target):
+    condition=True
+    answer = 0
+    temp=[]
+    sequence=[numbers[0],-numbers[0]]
+    for i in range(1,len(numbers)):
+        temp=sequence
+        sequence=[]
+        for j in range(len(temp)):
+            sequence.append(temp[j]+numbers[i])
+            sequence.append(temp[j]-numbers[i])
+    answer=sequence.count(target)
+    return answer
