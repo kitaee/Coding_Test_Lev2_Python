@@ -1,0 +1,150 @@
+#Kitae's Code
+
+import string
+import random
+
+class Player:
+  def __init__(self,name,hp,damage,count):
+    self.name=name; # 선수 이름
+    self.hp=hp; # 선수 체력
+    self.damage=damage; #선수 데미지
+    self.count=0 #선수가 맞춘 알파벳 횟수
+
+
+class Game:
+  def __init__(self):
+    self.player = []  #캐릭터의의 목록, start_game()에서 생성
+    self.user_character = ""  # 사용자가 선택한 캐릭터
+    self.remain_alp = list(string.ascii_uppercase)  #남은 알파벳
+    self.cur_string = ["_"] * 10  #현재까지의의 글자상태를 저장
+    self.answer_string = "" # 랜덤 10글자 단어
+
+  def start_game(self):
+
+    string_list=[] #알파벳 중복제거를 위해 만들어준 리스트
+    string_pool=string.ascii_uppercase #대문자 알파벳
+
+
+    self.player.append(Player("김건웅",50,20,0))  #건웅님 입력
+    self.player.append(Player("김현주",70,25,0))  #현주님 입력
+    self.player.append(Player("박진혁",80,30,0))  #진혁님 입력
+    self.player.append(Player("유송경",90,35,0))  #송경님 입력
+
+    while(True):
+      character_choice=input("당신의 캐릭터 번호를 선택해주세요 (1,2,3,4) : ") #캐릭터 입력받기
+      if(character_choice=='1'):
+        self.user_character=self.player[0].name
+        break
+      elif(character_choice=='2'):
+        self.user_character=self.player[1].name
+        break
+      elif(character_choice=='3'):
+        self.user_character=self.player[2].name
+        break
+      elif(character_choice=='4'):
+        self.user_character=self.player[3].name  
+        break
+      else:
+        print("숫자를 제대로 입력해주세요.")
+
+    print(f"당신의 캐릭터는 {self.user_character}입니다.\n")
+        
+    while(len(string_list)<10):
+      alpha=random.choice(string_pool)
+      if(alpha in string_list): # 알파벳이 중복된 경우 재시도
+        continue
+      else: 
+        string_list.append(alpha)
+    self.answer_string = ''.join(string_list) #랜덤 알파벳벳 10글자 answer_string에 저장
+    
+    print(f"컴퓨터가 랜덤으로 만든 답입니다. 플레이어에게는 보이지 않습니다. {self.answer_string}\n")
+
+
+  def sort_data(self,i): # i는 라운드
+    if(i==1): #1라운드 -> 이름순
+      self.player=sorted(self.player, key=lambda  x: x.name)
+    else: #2,3,4라운드 -> HP
+      self.player=sorted(self.player, key=lambda  x: x.hp)
+        
+
+  def play_game(self):
+    
+    used_alpha=[] # 쓴 알파벳들 
+    string_pool=string.ascii_uppercase #대문자 알파벳
+
+    print(f"게임은 {self.player[0].name},{self.player[1].name},{self.player[2].name},{self.player[3].name} 순으로 진행됩니다. \n")
+    
+    for i in range(4):
+      if self.player[i].name==self.user_character:
+        print("***** 내 캐릭터 *****")
+      else:
+        print(f"***** {i+1} 캐릭터 *****\n")
+
+      print(f"이름: {self.player[i].name} (HP: {self.player[i].hp})")
+      while(True):
+        trying = random.choice(string_pool) # 시도할 알파벳
+        if(trying in used_alpha):
+          continue
+        else:
+          used_alpha.append(trying)
+          break
+      print(f"선택알파벳: {trying}")
+
+      if(trying in self.answer_string): # 선택된된 알파벳이 맞았을 시
+        print("***** 맞았습니다 ᵔεᵔ  *****")
+        self.player[i].count+=1 #플레이어가 맞힌 횟수 +1
+        self.cur_string[self.answer_string.index(trying)]=trying #맞은 단어 보여주기
+        print(''.join(self.cur_string))
+        print("\n")
+
+      else: # 선택된 알파벳이 틀렸을 시
+        print("***** 틀렸습니다 (ﾟ⊿ﾟ)  ******")
+        self.player[i].hp-=self.player[i].damage  #플레이어 데미지만큼 hp 감소
+        print(f"{self.player[i].name}님은 틀렸기 때문에 HP가 {self.player[i].hp} 남았습니다.\n") 
+
+  def game_result(self):
+    print("\n\n******************* 게임이 끝났습니다 *******************")
+
+    print("=============================")
+    print("     게임 순위 - 생명력")
+    print("=============================")
+    
+    self.player=sorted(self.player, key=lambda  x: x.hp , reverse=True) #hp 내림차순으로 배열
+    for i in range(4):
+      if(self.player[i].hp<0):
+        print(f"{i+1}등: {self.player[i].name} (사망)")
+      else:
+        print(f"{i+1}등: {self.player[i].name} (HP:{self.player[i].hp})")
+
+    print("=============================")
+    print(" 게임 순위 - 알파벳 맞춘 횟수")
+    print("=============================")
+
+    self.player=sorted(self.player, key=lambda  x: x.count,reverse=True)  #맞춘 횟수 내림차순으로 배열
+    for i in range(4):
+      print(f"{i+1}등: {self.player[i].name} {self.player[i].count}회")
+      
+  def game(self):
+
+    self.start_game()
+    print("******************* 게임 시작 *******************\n")
+    
+    for i in range(3):
+      print("===========================")
+      print(f"     ROUND {i+1} - START")
+      print("===========================")
+
+      self.sort_data(i+1)
+      self.play_game()
+
+      print("===========================")
+      print(f"     ROUND {i+1} - END")
+      print("===========================")
+
+    self.game_result()
+
+
+
+if __name__=='__main__':
+  game=Game()
+  game.game()
