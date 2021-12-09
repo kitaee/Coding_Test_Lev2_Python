@@ -1,0 +1,40 @@
+def solution(s):
+    answer=0
+    for k in range(len(s)):
+        newString=rotate(s,k)
+        if(check(newString)):
+            answer+=1
+    return answer
+    
+                
+def check(s):
+    opens=["[","{","("]
+    stack=[]
+    for i in range(len(s)):
+        if(s[i] in opens):
+            stack.append(s[i])
+        else:
+            if(len(stack)==0):
+                return False
+            elif(stack[-1]=="[" and s[i]=="]"):
+                stack.pop()
+                continue
+            elif(stack[-1]=="{" and s[i]=="}"):
+                stack.pop()
+                continue
+            elif(stack[-1]=="(" and s[i]==")"):
+                stack.pop()
+                continue
+            else:
+                return False
+    if(len(stack)!=0):
+        return False
+    else:
+        return True
+    
+    
+
+def rotate(s,num):
+    result=s[num::]
+    result+=s[0:num]
+    return result
