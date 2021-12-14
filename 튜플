@@ -1,0 +1,10 @@
+def solution(s):
+    answer=[]
+    s=s.replace('{','')
+    s=s.replace('}','')
+    s=s.split(',')
+    a=list(set(s))
+    a.sort(key=lambda x:s.count(x),reverse=True)
+    for k in range(len(a)):
+        answer.append(int(a[k]))
+    return answer
