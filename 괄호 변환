@@ -1,0 +1,59 @@
+def solution(p):
+    answer=''
+    if(isCorrect(p)):
+        return p
+    elif(len(p)==0):
+        return p
+    else:
+        u,v=stepTwo(p)
+        if(isCorrect(u)!=True):
+            answer+='('
+            answer+=solution(v)
+            answer+=')'
+            u=u[1:len(u)-1]
+            for k in range(len(u)):
+                if(u[k]=='('):
+                    answer+=')'
+                else:
+                    answer+='('
+        else:
+            answer+=u
+            answer+=solution(v)
+    return answer
+            
+            
+def stepTwo(p):
+    open=0
+    close=0
+    for k in range(len(p)):
+        if(p[k]=='('):
+            open+=1
+        else:
+            close+=1
+        if(open==close):
+            u=p[0:k+1]
+            v=p[k+1::]
+            break
+    return u,v
+    
+    
+def isCorrect(p):
+    open=0
+    close=0
+    condition=True
+    for k in range(len(p)):
+        if(p[k]=='('):
+            open+=1
+        else:
+            close+=1
+        if(open<close):
+            condition=False
+            break
+    if(condition):
+        return True
+    else:
+        return False
+    
+    
+p=")("
+solution(p)
