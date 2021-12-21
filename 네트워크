@@ -1,0 +1,21 @@
+def solution(n, computers):
+    answer = 0
+    visited=[False for i in range(n)]
+    
+    for com in range(n):
+        if(visited[com]==False):
+            DFS(visited,n,computers,com)
+            answer+=1
+    return answer
+
+def DFS(visited,n,computers,com):
+    visited[com]=True
+    for connect in range(n):
+        if connect!=com and computers[com][connect]==1:
+            if visited[connect]==False:
+                DFS(visited,n,computers,connect)
+    
+    
+n=3
+computers=[[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+solution(n,computers)
